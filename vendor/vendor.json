@@ -3,6 +3,12 @@
 	"ignore": "",
 	"package": [
 		{
+			"checksumSHA1": "yVWTqhclpV+hQk2Uqsl1YsxoFLc=",
+			"path": "github.com/fsnotify/fsnotify",
+			"revision": "ccc981bf80385c528a65fbfdd49bf2d8da22aa23",
+			"revisionTime": "2018-08-30T22:02:26Z"
+		},
+		{
 			"checksumSHA1": "7hh26m8Op1aTQeyPXaOp+GrlFD0=",
 			"path": "github.com/go-chi/chi",
 			"revision": "7eb231e7fe03ac71ffb8659376bdbf15d2d42263",
@@ -31,6 +37,12 @@
 			"revisionTime": "2019-02-17T17:40:29Z"
 		},
 		{
+			"checksumSHA1": "v1Ch6/zZ7QD5i38fW9QHxkiE/Hs=",
+			"path": "github.com/spf13/viper",
+			"revision": "d104d259b3380cb653bb793756823c3c41b37b53",
+			"revisionTime": "2019-01-25T09:00:48Z"
+		},
+		{
 			"checksumSHA1": "qOa9pBJobDd84kPieoV1JoTUUV0=",
 			"path": "golang.org/x/net/http/httpguts",
 			"revision": "16b79f2e4e95ea23b2bf9903c9809ff7b013ce85",
@@ -53,6 +65,12 @@
 			"path": "golang.org/x/net/idna",
 			"revision": "16b79f2e4e95ea23b2bf9903c9809ff7b013ce85",
 			"revisionTime": "2019-03-01T08:36:47Z"
+		},
+		{
+			"checksumSHA1": "/4HmlX92To16u5s2bryHkTS4+CM=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "b6889370fb1098ed892bd3400d189bb6a3355813",
+			"revisionTime": "2019-01-20T05:37:32Z"
 		},
 		{
 			"checksumSHA1": "WYsDhZGparMeQMUkvocePUa9V5s=",
