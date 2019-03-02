@@ -1,7 +1,7 @@
 package main
 
 import (
-	"apistructure/http/todo"
+	"apistructure/handlers"
 	"apistructure/internal/config"
 	"log"
 	"net/http"
@@ -20,7 +20,7 @@ func Routes(config *config.Config) *chi.Mux {
 		middleware.RedirectSlashes,                    // Redirect slashes to no slash URL versions
 		middleware.Recoverer,                          // Recover from panics without crashing server
 	)
-	todoHandler := todo.NewTodoHandler(config.Database)
+	todoHandler := handlers.NewTodoHandler(config.Database)
 	router.Route("/v1", func(r chi.Router) {
 		r.Get("/todos", todoHandler.ListAllTodos)
 	})
