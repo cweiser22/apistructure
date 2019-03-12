@@ -4,25 +4,25 @@ import (
 	"apistructure/models"
 	"apistructure/store"
 	"database/sql"
-	"fmt"
 )
 
+//impliments TodoStore interface
 type SqliteTodoStore struct {
 	Conn *sql.DB
 }
 
+//creates a SqliteTodoStore
 func NewSQLTodoStore(db *sql.DB) store.TodoStore {
 	return &SqliteTodoStore{
 		Conn: db,
 	}
 }
 
+//gets all todos from database
 func (s *SqliteTodoStore) GetAll() ([]models.Todo, error) {
 	var todos []models.Todo
-	rows, err := s.Conn.Query("SELECT * FROM todos")
-	fmt.Println("made query")
+	rows, err := s.Conn.Query("SELECT todo_id, task FROM todos")
 	if err != nil {
-		fmt.Println("there qwas a problem")
 		return nil, err
 	}
 	for rows.Next() {
@@ -34,13 +34,21 @@ func (s *SqliteTodoStore) GetAll() ([]models.Todo, error) {
 		todos = append(todos, t)
 	}
 	rows.Close()
-	fmt.Println("rows closed")
 	return todos, err
 
 }
 
+func (s *SqliteTodoStore) GetById(id string) (models.Todo, error) {
+	var todo models.Todo
+	err := s.Conn.QueryRow("SELECT todo_id, task FROM todos WHERE todo_id = ?", id).Scan(&todo.ID, &todo.Task)
+	if err != nil {
+		return todo, err
+	}
+	return todo, err
+}
+
 /*
-func (p *postgresTodoStore) GetByID(id int) (models.Todo, error){
+func (s *SqliteTodoStore) Create(t *models.Todo) error {
 
 }
 */

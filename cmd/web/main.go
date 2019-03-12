@@ -7,10 +7,9 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
-	"github.com/go-chi/render"
 )
 
+/*
 func Routes(config *config.Config) *chi.Mux {
 	router := chi.NewRouter()
 	router.Use(
@@ -23,17 +22,18 @@ func Routes(config *config.Config) *chi.Mux {
 	todoHandler := handlers.NewTodoHandler(config.Database)
 	router.Route("/v1", func(r chi.Router) {
 		r.Get("/todos", todoHandler.ListAllTodos)
+		r.Get("/todos/{todoId:int}", todoHandler.FetchTodoByID)
 	})
 
 	return router
-}
+}*/
 
 func main() {
 	configuration, err := config.New()
 	if err != nil {
 		log.Panicln("Configuration error", err)
 	}
-	router := Routes(configuration)
+	router := handlers.Routes(configuration)
 
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
 		log.Printf("%s %s\n", method, route) // Walk and print out all routes

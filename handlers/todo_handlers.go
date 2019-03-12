@@ -4,9 +4,10 @@ import (
 	"apistructure/store"
 	"apistructure/store/todo"
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/go-chi/chi"
 )
 
 type TodoHandler struct {
@@ -26,19 +27,38 @@ func (h *TodoHandler) ListAllTodos(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, http.StatusInternalServerError, "Something went wrong.")
 		return
 	}
-	respondwithJSON(w, http.StatusOK, todos)
+	respondWithJSON(w, 200, todos)
 }
 
-// respondwithJSON write json response format
-func respondwithJSON(w http.ResponseWriter, code int, payload interface{}) {
-	response, _ := json.Marshal(payload)
+func (h *TodoHandler) FetchTodoByID(w http.ResponseWriter, r *http.Request) {
+	todoID := chi.URLParam(r, "todoId")
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-	w.Write(response)
+	todo, err := h.store.GetById(todoID)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			respondWithError(w, 404, "The todo does not exist.")
+			return
+		} else {
+			respondWithError(w, 500, "Something went wrong.")
+			return
+		}
+	}
+	respondWithJSON(w, 200, todo)
+
 }
 
-// respondwithError return error message
-func respondWithError(w http.ResponseWriter, code int, msg string) {
-	respondwithJSON(w, code, map[string]string{"message": msg})
+/*
+
+func (h *TodoHandler) CreateNewTodo(w http.ResponseWriter, r *http.Request) {
+
 }
+
+func (h *TodoHandler) DeleteTodo(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (h *TodoHandler) UpdateTodo(w http.ResponseWriter, r *http.Request) {
+
+}
+*/
